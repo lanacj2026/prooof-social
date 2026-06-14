@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>PROOOF — Your Goals Need Witnesses</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600&family=Barlow+Condensed:wght@700;800;900&display=swap" rel="stylesheet"/>
+<style>
+/* ── RESET & VARS ─────────────────────────────── */
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#09090E;--bg2:#0D0E16;--card:#13141D;--card2:#191A26;
+  --blue:#2B8FFF;--blue-dim:rgba(43,143,255,.13);--blue-bd:rgba(43,143,255,.35);
+  --gold:#F5C518;--green:#22C55E;--purple:#7C3AED;--red:#FF4455;
+  --txt:#F2F4FF;--t2:rgba(242,244,255,.62);--t3:rgba(242,244,255,.32);
+  --br:rgba(242,244,255,.09);--br2:rgba(242,244,255,.15);
+  --f-display:'Barlow Condensed',sans-serif;
+  --f-body:'Barlow',sans-serif;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--txt);font-family:var(--f-body);font-size:16px;line-height:1.6;overflow-x:hidden}
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");opacity:.4;pointer-events:none;z-index:0;}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:0 20px;background:rgba(9,9,14,.85);backdrop-filter:blur(20px);border-bottom:.5px solid var(--br);height:60px;display:flex;align-items:center;justify-content:space-between;}
+.nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+.nav-icon{width:32px;height:32px;background:var(--blue);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.nav-icon svg{display:block}
+.nav-wordmark{font-family:var(--f-display);font-size:22px;font-weight:900;color:var(--txt);letter-spacing:.5px}
+.nav-links{display:flex;align-items:center;gap:6px}
+.nav-links a{color:var(--t2);font-size:14px;font-weight:500;text-decoration:none;padding:6px 12px;border-radius:8px;transition:color .15s,background .15s}
+.nav-links a:hover{color:var(--txt);background:rgba(255,255,255,.06)}
+.nav-cta{background:var(--blue)!important;color:#fff!important;font-weight:700!important;border-radius:8px!important}
+.nav-cta:hover{opacity:.88;background:var(--blue)!important}
+.hamburger{display:none;background:none;border:none;color:var(--txt);cursor:pointer;padding:6px;font-size:22px}
+.mobile-menu{display:none;position:fixed;top:60px;left:0;right:0;background:rgba(9,9,14,.97);backdrop-filter:blur(20px);border-bottom:.5px solid var(--br);padding:16px 20px 24px;flex-direction:column;gap:4px;z-index:99}
+.mobile-menu.open{display:flex}
+.mobile-menu a{color:var(--t2);font-size:16px;font-weight:500;text-decoration:none;padding:12px 14px;border-radius:10px;transition:all .15s}
+.mobile-menu a:hover{color:var(--txt);background:rgba(255,255,255,.06)}
+.mobile-menu .nav-cta{background:var(--blue)!important;color:#fff!important;text-align:center;margin-top:8px}
+section{position:relative;z-index:1;padding:80px 20px}
+.container{max-width:900px;margin:0 auto;width:100%}
+.section-label{font-size:11px;font-weight:700;letter-spacing:3px;color:var(--blue);text-transform:uppercase;margin-bottom:16px}
+#hero{min-height:100vh;display:flex;align-items:center;padding-top:80px;background:radial-gradient(ellipse 80% 60% at 50% 0%, rgba(43,143,255,.12) 0%, transparent 70%);}
+.hero-inner{text-align:center;max-width:720px;margin:0 auto}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:8px;background:var(--card);border:.5px solid var(--br2);border-radius:30px;padding:6px 16px;font-size:12px;font-weight:600;color:var(--t2);margin-bottom:28px}
+.hero-eyebrow span{width:6px;height:6px;background:var(--green);border-radius:50%;animation:pulse 2s ease infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.6;transform:scale(1.3)}}
+.hero-title{font-family:var(--f-display);font-size:clamp(54px,14vw,96px);font-weight:900;line-height:.95;letter-spacing:-1px;color:var(--txt);margin-bottom:24px}
+.hero-title .blue{color:var(--blue)}
+.hero-sub{font-size:clamp(16px,3vw,20px);color:var(--t2);line-height:1.65;max-width:520px;margin:0 auto 36px}
+.hero-btns{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-bottom:56px}
+.btn-primary{display:inline-flex;align-items:center;gap:8px;background:var(--blue);color:#fff;font-family:var(--f-body);font-size:16px;font-weight:700;padding:14px 28px;border-radius:12px;text-decoration:none;transition:opacity .15s;border:none;cursor:pointer}
+.btn-primary:hover{opacity:.88}
+.btn-secondary{display:inline-flex;align-items:center;gap:8px;background:none;color:var(--txt);font-family:var(--f-body);font-size:16px;font-weight:600;padding:14px 28px;border-radius:12px;text-decoration:none;border:.5px solid var(--br2);transition:background .15s}
+.btn-secondary:hover{background:rgba(255,255,255,.06)}
+.hero-social-proof{display:flex;flex-direction:column;align-items:center;gap:10px}
+.avatar-row{display:flex}
+.hero-av{width:36px;height:36px;border-radius:50%;border:2px solid var(--bg);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;margin-right:-10px;flex-shrink:0}
+.social-text{font-size:13px;color:var(--t3)}
+.social-text strong{color:var(--txt)}
+.phone-wrap{position:relative;display:flex;justify-content:center;margin-top:60px}
+.phone-frame{width:260px;background:#0D0D12;border-radius:40px;border:2px solid rgba(255,255,255,.12);overflow:hidden;box-shadow:0 40px 80px rgba(0,0,0,.6),0 0 0 1px rgba(255,255,255,.04);position:relative;}
+.phone-screen{background:var(--bg);padding:0}
+.phone-status{padding:14px 18px 8px;display:flex;justify-content:space-between;font-size:11px;font-weight:700;color:var(--txt)}
+.phone-topbar{display:flex;align-items:center;justify-content:space-between;padding:8px 14px 8px;border-bottom:.5px solid var(--br)}
+.phone-brand{display:flex;align-items:center;gap:7px}
+.phone-bico{width:24px;height:24px;background:var(--blue);border-radius:6px;display:flex;align-items:center;justify-content:center}
+.phone-bwrd{font-family:var(--f-display);font-size:15px;font-weight:900;color:var(--txt)}
+.phone-inner{padding:10px}
+.ph-off{background:linear-gradient(135deg,#1a1200,#261a00);border:1px solid var(--gold);border-radius:10px;padding:10px 12px;margin-bottom:8px;cursor:default}
+.ph-off-badge{display:inline-flex;align-items:center;gap:3px;background:var(--gold);color:#2a1e00;font-size:7px;font-weight:800;letter-spacing:1px;text-transform:uppercase;padding:2px 7px;border-radius:20px;margin-bottom:5px}
+.ph-off-title{font-size:11px;font-weight:800;color:var(--txt);margin-bottom:2px}
+.ph-off-sub{font-size:9px;color:rgba(245,197,24,.8)}
+.ph-streak{background:rgba(43,143,255,.08);border:.5px solid rgba(43,143,255,.25);border-radius:10px;padding:10px 12px;display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+.ph-sn{font-family:var(--f-display);font-size:34px;font-weight:900;color:var(--blue);line-height:1}
+.ph-sl{font-size:7px;font-weight:700;letter-spacing:1.5px;color:var(--t3);text-transform:uppercase;margin-top:2px}
+.ph-dots{display:flex;gap:3px}
+.ph-dot{width:18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:900;color:#fff}
+.ph-dot.d{background:var(--blue)}
+.ph-dot.n{background:rgba(43,143,255,.15);border:1px solid var(--blue);font-size:6px;color:var(--blue)}
+.ph-dot.m{background:rgba(255,255,255,.06)}
+.ph-post{background:var(--card);border-radius:10px;overflow:hidden;margin-bottom:6px}
+.ph-post-hd{display:flex;align-items:center;gap:6px;padding:8px 10px}
+.ph-av{width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:800;flex-shrink:0}
+.ph-post-img{height:90px;background:var(--card2);display:flex;align-items:center;justify-content:center;position:relative;font-size:28px}
+.ph-dtag{position:absolute;top:6px;left:6px;background:var(--blue);color:#fff;font-size:7px;font-weight:800;padding:2px 7px;border-radius:20px}
+.ph-rxns{display:flex;gap:5px;padding:6px 10px}
+.ph-rxn{background:rgba(255,255,255,.06);border-radius:20px;padding:3px 7px;font-size:8px;color:var(--t2)}
+.ph-rxn.on{background:rgba(43,143,255,.15);color:var(--blue)}
+.phone-nav{display:flex;border-top:.5px solid var(--br);background:#0A0A12}
+.pnav-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;padding:7px 0 9px;font-size:7px;font-weight:700;color:var(--t3)}
+.pnav-item.on{color:var(--blue)}
+.pnav-item span{font-size:15px}
+.phone-glow{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:300px;height:300px;background:radial-gradient(circle, rgba(43,143,255,.18) 0%, transparent 70%);pointer-events:none;z-index:-1}
+.stats-bar{background:var(--card);border:.5px solid var(--br);border-radius:16px;display:grid;grid-template-columns:repeat(3,1fr);overflow:hidden;margin-top:60px}
+.stat-item{padding:28px 20px;text-align:center;border-right:.5px solid var(--br)}
+.stat-item:last-child{border-right:none}
+.stat-num{font-family:var(--f-display);font-size:42px;font-weight:900;color:var(--blue);line-height:1;margin-bottom:4px}
+.stat-lbl{font-size:13px;color:var(--t3);font-weight:500}
+#how{background:linear-gradient(180deg, var(--bg) 0%, var(--bg2) 100%)}
+.steps{display:flex;flex-direction:column;gap:32px;margin-top:48px}
+.step{display:flex;gap:20px;align-items:flex-start}
+.step-num{width:44px;height:44px;border-radius:12px;background:var(--blue-dim);border:.5px solid var(--blue-bd);display:flex;align-items:center;justify-content:center;font-family:var(--f-display);font-size:20px;font-weight:900;color:var(--blue);flex-shrink:0}
+.step-content{padding-top:4px}
+.step-title{font-family:var(--f-display);font-size:26px;font-weight:800;color:var(--txt);margin-bottom:6px}
+.step-desc{font-size:15px;color:var(--t2);line-height:1.65}
+#features{background:var(--bg)}
+.features-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:48px}
+.feature-card{background:var(--card);border:.5px solid var(--br);border-radius:16px;padding:24px;position:relative;overflow:hidden;transition:border-color .2s}
+.feature-card:hover{border-color:var(--blue-bd)}
+.feature-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;border-radius:16px 16px 0 0}
+.fc-blue::before{background:var(--blue)}.fc-purple::before{background:var(--purple)}.fc-gold::before{background:var(--gold)}.fc-green::before{background:var(--green)}.fc-red::before{background:var(--red)}.fc-pink::before{background:#EC4899}
+.feature-em{font-size:28px;margin-bottom:12px}
+.feature-title{font-family:var(--f-display);font-size:20px;font-weight:800;color:var(--txt);margin-bottom:6px}
+.feature-desc{font-size:13px;color:var(--t2);line-height:1.6}
+#community{background:var(--bg2)}
+.proof-feed{display:flex;flex-direction:column;gap:14px;margin-top:40px}
+.proof-card{background:var(--card);border:.5px solid var(--br);border-radius:16px;padding:18px;display:flex;gap:14px;align-items:flex-start}
+.proof-av{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;flex-shrink:0}
+.proof-name{font-size:14px;font-weight:700;color:var(--txt);margin-bottom:1px}
+.proof-challenge{font-size:11px;color:var(--t3);margin-bottom:8px}
+.proof-text{font-size:14px;color:var(--t2);line-height:1.6;margin-bottom:10px}
+.proof-meta{display:flex;align-items:center;gap:8px}
+.proof-rxns{display:flex;gap:6px;margin-left:auto}
+.rxn-pill{font-size:11px;padding:4px 9px;background:rgba(255,255,255,.05);border-radius:20px;color:var(--t2)}
+.rxn-pill.on{background:rgba(43,143,255,.15);color:var(--blue)}
+#partners{background:var(--bg)}
+.partners-tabs{display:flex;gap:8px;margin-bottom:32px;margin-top:40px}
+.ptab{padding:9px 18px;border:.5px solid var(--br);border-radius:30px;background:none;color:var(--t2);font-family:var(--f-body);font-size:13px;font-weight:600;cursor:pointer;transition:all .15s}
+.ptab.on{background:var(--blue-dim);border-color:var(--blue-bd);color:var(--txt)}
+.partner-pane{display:none}.partner-pane.on{display:block}
+.partner-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.partner-card{background:var(--card);border:.5px solid var(--br);border-radius:16px;padding:18px;cursor:pointer;transition:border-color .2s,transform .15s}
+.partner-card:hover{border-color:var(--blue-bd);transform:translateY(-2px)}
+.partner-card.has-giveaway{border-color:rgba(124,58,237,.4)}
+.pc-head{display:flex;align-items:center;gap:12px;margin-bottom:12px}
+.pc-logo{width:48px;height:48px;border-radius:13px;display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0;border:.5px solid var(--br)}
+.pc-name{font-size:14px;font-weight:700;color:var(--txt);margin-bottom:2px}
+.pc-type{font-size:10px;color:var(--t3)}
+.vbadge{width:14px;height:14px;background:var(--blue);border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:7px;color:#fff;margin-left:4px;vertical-align:middle}
+.pc-challenge{font-size:12px;color:var(--t2);margin-bottom:10px;line-height:1.5}
+.pc-tags{display:flex;gap:6px;flex-wrap:wrap}
+.pctag{font-size:10px;font-weight:700;padding:3px 8px;border-radius:20px;border:.5px solid}
+.gw-tag{background:rgba(124,58,237,.15);color:#A78BFA;border-color:rgba(124,58,237,.3)}
+.live-tag{background:rgba(34,197,94,.1);color:var(--green);border-color:rgba(34,197,94,.25)}
+.school-tag{background:rgba(43,143,255,.13);color:var(--blue);border-color:var(--blue-bd)}
+#official{background:var(--bg2)}
+.official-card{background:linear-gradient(135deg,#1a1200,#261a00);border:1.5px solid var(--gold);border-radius:20px;padding:28px;margin-top:40px;position:relative;overflow:hidden}
+.official-card::after{content:'';position:absolute;top:-60px;right:-60px;width:200px;height:200px;background:radial-gradient(circle,rgba(245,197,24,.1) 0%,transparent 70%);pointer-events:none}
+.oc-badge{display:inline-flex;align-items:center;gap:6px;background:var(--gold);color:#2a1e00;font-size:10px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;padding:4px 12px;border-radius:20px;margin-bottom:14px}
+.oc-title{font-family:var(--f-display);font-size:32px;font-weight:900;color:var(--txt);margin-bottom:8px;line-height:1.1}
+.oc-desc{font-size:15px;color:rgba(245,197,24,.8);margin-bottom:20px;line-height:1.65}
+.oc-prizes{display:flex;flex-direction:column;gap:8px;margin-bottom:20px}
+.oc-prize{display:flex;align-items:center;gap:12px;background:rgba(245,197,24,.08);border-radius:10px;padding:10px 14px}
+.oc-prize-rank{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;flex-shrink:0}
+.oc-prize-val{font-size:13px;font-weight:700;color:var(--txt)}
+.oc-prize-sub{font-size:11px;color:rgba(245,197,24,.6)}
+.oc-meta{display:flex;gap:8px;flex-wrap:wrap}
+.oc-pill{font-size:11px;font-weight:700;padding:4px 12px;border-radius:20px}
+#pricing{background:var(--bg)}
+.pricing-grid{display:grid;grid-template-columns:1fr;gap:14px;margin-top:48px}
+.price-card{background:var(--card);border:.5px solid var(--br);border-radius:20px;padding:28px;position:relative;overflow:hidden}
+.price-card.featured{border-color:var(--blue)}
+.price-stripe{position:absolute;top:0;left:0;right:0;height:3px;border-radius:20px 20px 0 0}
+.price-tag-pill{display:inline-block;font-size:10px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;padding:4px 12px;border-radius:20px;margin-bottom:14px}
+.price-name{font-family:var(--f-display);font-size:22px;font-weight:800;color:var(--txt);margin-bottom:4px}
+.price-num{font-family:var(--f-display);font-size:52px;font-weight:900;line-height:1;margin-bottom:4px}
+.price-per{font-size:14px;font-weight:500;color:var(--t3)}
+.price-desc{font-size:14px;color:var(--t2);margin-bottom:20px;line-height:1.6}
+.price-feats{display:flex;flex-direction:column;gap:10px;margin-bottom:24px}
+.price-feat{display:flex;align-items:flex-start;gap:10px;font-size:14px;color:rgba(242,244,255,.82);line-height:1.4}
+.price-feat::before{content:'✓';font-weight:800;flex-shrink:0;margin-top:1px}
+.pf-blue::before{color:var(--blue)}.pf-gold::before{color:var(--gold)}.pf-ghost::before{color:var(--t3)}
+.price-btn{display:block;width:100%;padding:14px;border:none;border-radius:12px;font-family:var(--f-body);font-size:15px;font-weight:700;text-align:center;cursor:pointer;text-decoration:none;transition:opacity .15s}
+.price-btn:hover{opacity:.88}
+.price-btn-ghost{background:none;border:.5px solid var(--br2);color:var(--t2)}
+.price-btn-blue{background:var(--blue);color:#fff}
+.price-btn-gold{background:var(--gold);color:#2a1e00}
+#about{background:var(--bg2)}
+.about-grid{display:grid;grid-template-columns:1fr;gap:32px;margin-top:48px}
+.about-text{max-width:600px}
+.about-heading{font-family:var(--f-display);font-size:clamp(32px,7vw,52px);font-weight:900;color:var(--txt);line-height:1.05;margin-bottom:20px}
+.about-body{font-size:16px;color:var(--t2);line-height:1.75;margin-bottom:16px}
+.values-list{display:flex;flex-direction:column;gap:10px;margin-top:24px}
+.value-item{display:flex;align-items:flex-start;gap:12px;font-size:15px;color:var(--t2);line-height:1.5}
+.value-dot{width:8px;height:8px;border-radius:50%;background:var(--blue);flex-shrink:0;margin-top:8px}
+#viral{background:var(--bg)}
+.viral-grid{display:grid;grid-template-columns:1fr;gap:14px;margin-top:40px}
+.viral-card{background:var(--card);border:.5px solid var(--br);border-radius:16px;padding:20px;display:flex;gap:16px;align-items:flex-start;transition:border-color .2s}
+.viral-card:hover{border-color:var(--blue-bd)}
+.viral-num{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-family:var(--f-display);font-size:16px;font-weight:900;flex-shrink:0}
+.viral-title{font-size:16px;font-weight:700;color:var(--txt);margin-bottom:4px}
+.viral-desc{font-size:13px;color:var(--t2);line-height:1.6}
+#cta{background:radial-gradient(ellipse 80% 60% at 50% 100%, rgba(43,143,255,.14) 0%, transparent 70%);text-align:center;padding-bottom:120px;}
+.cta-title{font-family:var(--f-display);font-size:clamp(42px,10vw,80px);font-weight:900;color:var(--txt);line-height:1;margin-bottom:18px}
+.cta-sub{font-size:18px;color:var(--t2);margin-bottom:36px;line-height:1.6}
+footer{background:var(--bg2);border-top:.5px solid var(--br);padding:40px 20px;text-align:center}
+.footer-logo{display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:16px;text-decoration:none}
+.footer-links{display:flex;flex-wrap:wrap;justify-content:center;gap:20px;margin-bottom:20px}
+.footer-links a{color:var(--t3);font-size:13px;text-decoration:none;transition:color .15s}
+.footer-links a:hover{color:var(--txt)}
+.footer-legal{font-size:12px;color:var(--t3)}
+.section-divider{height:.5px;background:var(--br);margin:0}
+.fade-in{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease}
+.fade-in.visible{opacity:1;transform:translateY(0)}
+@media(min-width:640px){.features-grid{grid-template-columns:repeat(2,1fr)}.partner-grid{grid-template-columns:repeat(2,1fr)}.pricing-grid{grid-template-columns:repeat(3,1fr)}.stats-bar{grid-template-columns:repeat(3,1fr)}.about-grid{grid-template-columns:1fr 1fr;align-items:start}section{padding:100px 32px}.container{padding:0}}
+@media(min-width:900px){.features-grid{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:639px){.nav-links{display:none}.hamburger{display:flex}.hero-title{font-size:58px}.stat-num{font-size:32px}}
+</style>
+</head>
+<body>
+<nav>
+  <a href="#" class="nav-logo">
+    <div class="nav-icon"><svg width="18" height="18" viewBox="0 0 44 44" fill="none"><path d="M9 6L35 22L9 38" stroke="white" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+    <span class="nav-wordmark">PROOOF Social</span>
+  </a>
+  <div class="nav-links">
+    <a href="#how">How it works</a>
+    <a href="#features">Features</a>
+    <a href="#partners">Community</a>
+    <a href="#nonprofit">Impact</a>
+    <a href="#pricing">Pricing</a>
+    <a href="#about">About</a>
+    <button onclick="showComingSoon()" class="nav-cta" style="cursor:pointer;border:none;font-family:var(--f-body);font-size:14px;padding:6px 12px;border-radius:8px">Coming Soon</button>
+  </div>
+  <button class="hamburger" onclick="toggleMenu()" aria-label="menu">☰</button>
+</nav>
+<div class="mobile-menu" id="mobile-menu">
+  <a href="#how" onclick="closeMenu()">How it works</a>
+  <a href="#features" onclick="closeMenu()">Features</a>
+  <a href="#partners" onclick="closeMenu()">Community</a>
+  <a href="#nonprofit" onclick="closeMenu()">Impact</a>
+  <a href="#pricing" onclick="closeMenu()">Pricing</a>
+  <a href="#about" onclick="closeMenu()">About</a>
+  <button onclick="showComingSoon();closeMenu()" class="nav-cta" style="cursor:pointer;border:none;font-family:var(--f-body);font-size:14px;padding:12px;border-radius:8px;margin-top:8px;width:100%">Coming Soon</button>
+</div>
+<section id="hero">
+  <div class="container">
+    <div class="hero-inner fade-in">
+      <div class="hero-eyebrow"><span style="background:var(--gold)"></span>Coming Soon — Join the Waitlist</div>
+      <h1 class="hero-title">Your goals<br/>need <span class="blue">witnesses.</span></h1>
+      <p class="hero-sub">Join challenges, post proof you completed them, and build streaks with friends who actually hold you accountable.</p>
+      <div class="hero-btns">
+        <button onclick="showComingSoon()" class="btn-primary"><svg width="16" height="16" viewBox="0 0 44 44" fill="none"><path d="M9 6L35 22L9 38" stroke="white" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/></svg>Coming Soon</button>
+        <a href="#how" class="btn-secondary">See how it works →</a>
+      </div>
+      <div style="margin-bottom:20px"><a href="https://instagram.com/prooofsocial" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.06);border:.5px solid var(--br2);border-radius:30px;padding:7px 16px;font-size:13px;font-weight:600;color:var(--txt);text-decoration:none;transition:background .15s" onmouseover="this.style.background='rgba(255,255,255,.1)'" onmouseout="this.style.background='rgba(255,255,255,.06)'"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>@prooofsocial</a></div>
+      <div class="hero-social-proof">
+        <div class="avatar-row">
+          <div class="hero-av" style="background:#182800;color:#8fcc45">JK</div>
+          <div class="hero-av" style="background:#001228;color:#6aadff">MR</div>
+          <div class="hero-av" style="background:#1e0020;color:#d06fff">TL</div>
+          <div class="hero-av" style="background:#1a1200;color:#f5c518">SP</div>
+          <div class="hero-av" style="background:#0d1e30;color:#6aadff">KM</div>
+          <div class="hero-av" style="background:#2B8FFF;color:#fff;font-size:10px">+</div>
+        </div>
+        <p class="social-text"><strong>Join 500+</strong> people on the waitlist</p>
+      </div>
+    </div>
+    <div class="phone-wrap fade-in" style="position:relative;display:flex;justify-content:center;margin-top:40px;margin-bottom:0">
+      <div class="phone-glow"></div>
+      <img 
+        src="data:image/webp;base64,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" 
+        alt="PROOOF app interface on iPhone" 
+        style="width:min(420px,90vw);height:auto;display:block;filter:drop-shadow(0 40px 80px rgba(0,0,0,.7));position:relative;z-index:1"
+      />
+    </div>
+        <div class="stats-bar fade-in">
+      <div class="stat-item"><div class="stat-num">500+</div><div class="stat-lbl">On the waitlist</div></div>
+      <div class="stat-item"><div class="stat-num">2026</div><div class="stat-lbl">Launch year</div></div>
+      <div class="stat-item"><div class="stat-num">OKC</div><div class="stat-lbl">Home base</div></div>
+    </div>
+  </div>
+</section>
+<div class="section-divider"></div>
+<section id="how">
+  <div class="container">
+    <div class="fade-in">
+      <div class="section-label">How it works</div>
+      <h2 style="font-family:var(--f-display);font-size:clamp(36px,8vw,60px);font-weight:900;color:var(--txt);line-height:1.05;margin-bottom:12px">Simple as 1-2-3.</h2>
+      <p style="font-size:16px;color:var(--t2);max-width:500px;line-height:1.65">No complicated setup. Just join, post, and watch your streak grow.</p>
+    </div>
+    <div class="steps">
+      <div class="step fade-in"><div class="step-num">01</div><div class="step-content"><div class="step-title">Join a challenge</div><div class="step-desc">Browse hundreds of public challenges — fitness, wellness, finance, learning, and more. Or create your own and invite friends. Businesses, universities, and coaches host official challenges with real prizes and exclusive badges.</div></div></div>
+      <div class="step fade-in"><div class="step-num">02</div><div class="step-content"><div class="step-title">Post your proof</div><div class="step-desc">Upload a photo, screenshot, note, or check-in every day. Your proof goes into the challenge feed where your accountability partners can see it, react to it, and cheer you on. Day badge auto-stamps every post.</div></div></div>
+      <div class="step fade-in"><div class="step-num">03</div><div class="step-content"><div class="step-title">Build your streak</div><div class="step-desc">Watch your streak grow. Earn badges. Climb leaderboards. Get nudged on days you miss. Your profile becomes a public record of follow-through — proof over promises.</div></div></div>
+    </div>
+  </div>
+</section>
+<div class="section-divider"></div>
+<section id="features">
+  <div class="container">
+    <div class="fade-in">
+      <div class="section-label">Features</div>
+      <h2 style="font-family:var(--f-display);font-size:clamp(36px,8vw,60px);font-weight:900;color:var(--txt);line-height:1.05;margin-bottom:12px">Built for follow-through.</h2>
+      <p style="font-size:16px;color:var(--t2);max-width:500px;line-height:1.65">Every feature exists to make showing up easier and more rewarding.</p>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card fc-blue fade-in"><div class="feature-em">🏆</div><div class="feature-title">Challenges</div><div class="feature-desc">Public, private, invite-only, or school/business-hosted. Set your cadence, proof type, and duration. Any goal, any group.</div></div>
+      <div class="feature-card fc-purple fade-in"><div class="feature-em">📸</div><div class="feature-title">Proof Posts</div><div class="feature-desc">Photo, note, screenshot, or check-in. Every post is auto-stamped with your day number and synced to your challenge feed.</div></div>
+      <div class="feature-card fc-gold fade-in"><div class="feature-em">🔥</div><div class="feature-title">Streaks</div><div class="feature-desc">Visual daily streak tracking with weekly dot grids. Miss a day and friends can nudge you. Never let momentum die quietly.</div></div>
+      <div class="feature-card fc-green fade-in"><div class="feature-em">👥</div><div class="feature-title">Friends & Nudges</div><div class="feature-desc">Add friends, see their progress, react to their proof, and send nudges on days they miss. Accountability is a team sport.</div></div>
+      <div class="feature-card fc-pink fade-in"><div class="feature-em">🗺️</div><div class="feature-title">Community Map</div><div class="feature-desc">Browse challenges by city. Find what's happening in Oklahoma City, Austin, Denver. Favorite communities for event alerts.</div></div>
+      <div class="feature-card fc-red fade-in"><div class="feature-em">🏅</div><div class="feature-title">Badges</div><div class="feature-desc">Earn permanent badges for consistency, category mastery, and completing official challenges. Some badges are only earnable once — during their event window.</div></div>
+    </div>
+  </div>
+</section>
+<div class="section-divider"></div>
+<section id="community">
+  <div class="container">
+    <div class="fade-in">
+      <div class="section-label">Real people. Real PROOOF™.</div>
+      <h2 style="font-family:var(--f-display);font-size:clamp(36px,8vw,60px);font-weight:900;color:var(--txt);line-height:1.05;margin-bottom:12px">The receipts are public.</h2>
+      <p style="font-size:16px;color:var(--t2);max-width:500px;line-height:1.65">This isn't a place to say you did it. It's a place to show it.</p>
+    </div>
+    <div class="proof-feed">
+      <div class="proof-card fade-in">
+        <div class="proof-av" style="background:#182800;color:#8fcc45">JK</div>
+        <div class="proof-body">
+          <div class="proof-name">@jenna_k <span style="font-size:10px;font-weight:700;background:rgba(43,143,255,.13);color:var(--blue);border:.5px solid var(--blue-bd);border-radius:20px;padding:1px 7px;margin-left:4px">Fitness Pro 💪</span></div>
+          <div class="proof-challenge">🚶 7-Day Walk Challenge · Day 4</div>
+          <div class="proof-text">6am walk done before anyone else was even awake. Not missing a single day this time. Proof or it didn't happen 💪</div>
+          <div class="proof-meta"><div class="proof-rxns"><span class="rxn-pill on">🔥 12</span><span class="rxn-pill">👏 5</span><span class="rxn-pill">💪 3</span></div></div>
+        </div>
+      </div>
+      <div class="proof-card fade-in">
+        <div class="proof-av" style="background:#001228;color:#6aadff">MR</div>
+        <div class="proof-body">
+          <div class="proof-name">@mross</div>
+          <div class="proof-challenge">💧 30-Day Water Challenge · Day 9</div>
+          <div class="proof-text">3L down. My skin is actually glowing and I've had zero headaches this week. This challenge changed something.</div>
+          <div class="proof-meta"><div class="proof-rxns"><span class="rxn-pill">🔥 8</span><span class="rxn-pill on">👏 14</span><span class="rxn-pill">💪 7</span></div></div>
+        </div>
+      </div>
+      <div class="proof-card fade-in">
+        <div class="proof-av" style="background:#1a1200;color:#f5c518">SR</div>
+        <div class="proof-body">
+          <div class="proof-name">@sara_runs_okc <span style="font-size:10px;font-weight:700;background:rgba(245,197,24,.1);color:var(--gold);border:.5px solid rgba(245,197,24,.3);border-radius:20px;padding:1px 7px;margin-left:4px">OKC Finisher 🏅</span></div>
+          <div class="proof-challenge">🏅 OKC Memorial Marathon Training · Day 12</div>
+          <div class="proof-text">8 miles at Bricktown at sunrise. OKC, we are going to crush this marathon together. Who else is training? 🙌</div>
+          <div class="proof-meta"><div class="proof-rxns"><span class="rxn-pill on">🔥 94</span><span class="rxn-pill">👏 41</span></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<div class="section-divider"></div>
+<section id="partners">
+  <div class="container">
+    <div class="fade-in">
+      <div class="section-label">Businesses & Schools</div>
+      <h2 style="font-family:var(--f-display);font-size:clamp(36px,8vw,60px);font-weight:900;color:var(--txt);line-height:1.05;margin-bottom:12px">Your community within PROOOF™.</h2>
+      <p style="font-size:16px;color:var(--t2);max-width:520px;line-height:1.65">Local businesses, fitness studios, restaurants, retail, and universities host real challenges with real rewards.</p>
+    </div>
+    <div class="partners-tabs">
+      <button class="ptab on" onclick="partnerTab('businesses',this)">🏢 Businesses</button>
+      <button class="ptab" onclick="partnerTab('schools',this)">🎓 Schools</button>
+    </div>
+    <div id="pp-businesses" class="partner-pane on">
+      <div class="partner-grid">
+        <div class="partner-card has-giveaway fade-in">
+          <div class="pc-head"><div class="pc-logo" style="background:#0a0e1a;font-size:22px">💪</div><div><div class="pc-name">Drive Training Club <div class="vbadge">✓</div></div><div class="pc-type">Fitness Studio · Norman, OK</div></div></div>
+          <div class="pc-challenge">Running a <strong style="color:var(--txt)">6-Week Performance Challenge</strong> — post your training sessions daily. Top finishers win a free membership quarter.</div>
+          <div class="pc-tags"><span class="pctag gw-tag">🎁 Giveaway</span><span class="pctag live-tag">Fitness</span></div>
+        </div>
+        <div class="partner-card fade-in">
+          <div class="pc-head"><div class="pc-logo" style="background:#1a0a20;font-size:22px">🛍️</div><div><div class="pc-name">BIA <div class="vbadge">✓</div></div><div class="pc-type">Wellness & Activewear · OKC</div></div></div>
+          <div class="pc-challenge">Hosting a <strong style="color:var(--txt)">30-Day Wellness Reset</strong> — movement, mindfulness, and self-care proof daily. Community discount for all finishers.</div>
+          <div class="pc-tags"><span class="pctag gw-tag">🎁 Giveaway</span><span class="pctag live-tag">Wellness</span></div>
+        </div>
+        <div class="partner-card fade-in">
+          <div class="pc-head"><div class="pc-logo" style="background:#1a0a0a;font-size:22px">🛍️</div><div><div class="pc-name">Kova Supply</div><div class="pc-type">Retail · Dallas, TX</div></div></div>
+          <div class="pc-challenge">Running a <strong style="color:var(--txt)">Move More Month</strong> — customers post 20 active days and earn store credit toward their next purchase.</div>
+          <div class="pc-tags"><span class="pctag" style="background:rgba(43,143,255,.13);color:var(--blue);border-color:var(--blue-bd)">Retail</span><span class="pctag live-tag">Coming soon</span></div>
+        </div>
+        <div class="partner-card fade-in">
+          <div class="pc-head"><div class="pc-logo" style="background:#1a0d00;font-size:22px">☕</div><div><div class="pc-name">Dusk Coffee</div><div class="pc-type">Coffee Shop · Tulsa, OK</div></div></div>
+          <div class="pc-challenge">Hosting a <strong style="color:var(--txt)">Morning Pages Challenge</strong> — journal, read, or create every morning for 21 days. Free drinks for the top streak.</div>
+          <div class="pc-tags"><span class="pctag gw-tag">🎁 Giveaway</span><span class="pctag live-tag">Café</span></div>
+        </div>
+      </div>
+      <div style="margin-top:20px;background:var(--card);border:.5px solid var(--br);border-radius:14px;padding:20px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:14px">
+        <div><div style="font-size:16px;font-weight:700;color:var(--txt);margin-bottom:4px">Run a business?</div><div style="font-size:14px;color:var(--t2)">Host branded challenges, track your community, and run giveaways. From $49/mo.</div></div>
+        <button onclick="showComingSoon()" class="btn-primary" style="white-space:nowrap;font-size:14px;padding:12px 22px;cursor:pointer;border:none;font-family:var(--f-body)">Coming Soon</button>
+      </div>
+    </div>
+    <div id="pp-schools" class="partner-pane">
+      <div class="partner-grid">
+        <div class="partner-card fade-in">
+          <div class="pc-head"><div class="pc-logo" style="background:#001228;border-color:var(--blue)">🎓</div><div><div class="pc-name">Univ. of Oklahoma <div class="vbadge">✓</div></div><div class="pc-type">University · Norman, OK</div></div></div>
+          <div class="pc-challenge">Official <strong style="color:var(--txt)">Sooner Wellness Week</strong> — campus-wide challenge. All participants earn the OU Wellness Badge.</div>
+          <div class="pc-tags"><span class="pctag school-tag">🎓 Official</span><span class="pctag live-tag">2,341 students</span></div>
+        </div>
+        <div class="partner-card fade-in">
+          <div class="pc-head"><div class="pc-logo" style="background:#1a0a00">🏫</div><div><div class="pc-name">Oklahoma State Univ.</div><div class="pc-type">University · Stillwater, OK</div></div></div>
+          <div class="pc-challenge">Student-run <strong style="color:var(--txt)">OSU Finals Grind</strong> — 2-week study accountability challenge open to all students.</div>
+          <div class="pc-tags"><span class="pctag school-tag">Student-created</span><span class="pctag live-tag">1,204 members</span></div>
+        </div>
+        <div class="partner-card fade-in">
+          <div class="pc-head"><div class="pc-logo" style="background:#001a12">🏛️</div><div><div class="pc-name">OKC Community College</div><div class="pc-type">Community College · OKC</div></div></div>
+          <div class="pc-challenge">Running a <strong style="color:var(--txt)">Wellness Month</strong> for all enrolled students — mental health, fitness, and sleep goals.</div>
+          <div class="pc-tags"><span class="pctag school-tag">🎓 Official</span><span class="pctag live-tag">318 members</span></div>
+        </div>
+        <div class="partner-card fade-in">
+          <div class="pc-head"><div class="pc-logo" style="background:#1a1200">🏫</div><div><div class="pc-name">Edmond North High School</div><div class="pc-type">High School · Edmond, OK</div></div></div>
+          <div class="pc-challenge">Hosting a <strong style="color:var(--txt)">Senior 100-Day Challenge</strong> — daily fitness or study proof from seniors heading to college.</div>
+          <div class="pc-tags"><span class="pctag school-tag">🎓 Official</span><span class="pctag live-tag">487 students</span></div>
+        </div>
+      </div>
+      <div style="margin-top:20px;background:var(--card);border:.5px solid var(--br);border-radius:14px;padding:20px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:14px">
+        <div><div style="font-size:16px;font-weight:700;color:var(--txt);margin-bottom:4px">Are you an educator or student leader?</div><div style="font-size:14px;color:var(--t2)">Bring Proof to your campus. Create a school community and host official challenges.</div></div>
+        <button onclick="showComingSoon()" class="btn-primary" style="white-space:nowrap;font-size:14px;padding:12px 22px;cursor:pointer;border:none;font-family:var(--f-body)">Coming Soon</button>
+      </div>
+    </div>
+  </div>
+</section>
+<div class="section-divider"></div>
+<section id="nonprofit" style="background:var(--bg)">
+  <div class="container">
+    <div class="fade-in">
+      <div class="section-label">Community Impact</div>
+      <h2 style="font-family:var(--f-display);font-size:clamp(36px,8vw,60px);font-weight:900;color:var(--txt);line-height:1.05;margin-bottom:12px">PROOOF™ for Good.</h2>
+      <p style="font-size:16px;color:var(--t2);max-width:540px;line-height:1.65">Members of non-profits, shelters, food banks, and community organizations can use PROOOF to rally volunteers, track service hours, and run donation drives — because doing good deserves a community too.</p>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin-top:48px;margin-bottom:48px">
+      <div style="background:var(--card);border:.5px solid var(--br);border-radius:16px;padding:24px"><div style="font-size:28px;margin-bottom:12px">🤝</div><div style="font-family:var(--f-display);font-size:20px;font-weight:800;color:var(--txt);margin-bottom:6px">Volunteer drives</div><div style="font-size:13px;color:var(--t2);line-height:1.65">Create a challenge around volunteer hours. Members post their proof — a photo from the shelter, a receipt from the food bank — and build streaks around showing up for others.</div></div>
+      <div style="background:var(--card);border:.5px solid var(--br);border-radius:16px;padding:24px"><div style="font-size:28px;margin-bottom:12px">📦</div><div style="font-family:var(--f-display);font-size:20px;font-weight:800;color:var(--txt);margin-bottom:6px">Donation challenges</div><div style="font-size:13px;color:var(--t2);line-height:1.65">Run a 30-day donation challenge. Every participant posts proof of their contribution — canned goods, clothing, time — and the community watches the impact compound in real time.</div></div>
+      <div style="background:var(--card);border:.5px solid var(--br);border-radius:16px;padding:24px"><div style="font-size:28px;margin-bottom:12px">🏘️</div><div style="font-family:var(--f-display);font-size:20px;font-weight:800;color:var(--txt);margin-bottom:6px">Community events</div><div style="font-size:13px;color:var(--t2);line-height:1.65">Park cleanups, neighborhood walks, community gardens — tie local events to PROOOF challenges and give participants a shared proof record they can be proud of.</div></div>
+      <div style="background:var(--card);border:.5px solid var(--br);border-radius:16px;padding:24px"><div style="font-size:28px;margin-bottom:12px">💙</div><div style="font-family:var(--f-display);font-size:20px;font-weight:800;color:var(--txt);margin-bottom:6px">Awareness campaigns</div><div style="font-size:13px;color:var(--t2);line-height:1.65">Mental health walks, sobriety streaks, grief support check-ins — PROOOF creates a safe, consistent space for communities navigating hard things together.</div></div>
+    </div>
+    <div class="fade-in" style="margin-bottom:8px"><div class="section-label" style="padding-top:0">Examples of what this looks like</div></div>
+    <div class="partner-grid">
+      <div class="partner-card fade-in"><div class="pc-head"><div class="pc-logo" style="background:#001a10;font-size:22px">🥫</div><div><div class="pc-name">Food-Share Alliance</div><div class="pc-type">Food Bank · Brookhaven, MO</div></div></div><div class="pc-challenge">Running a <strong style="color:var(--txt)">30 Cans in 30 Days</strong> challenge — participants post proof of each donation drop. Every completed streak triggers a matched corporate donation.</div><div class="pc-tags"><span class="pctag" style="background:rgba(34,197,94,.1);color:var(--green);border-color:rgba(34,197,94,.25)">🤝 Community</span><span class="pctag live-tag">Non-profit</span></div></div>
+      <div class="partner-card fade-in"><div class="pc-head"><div class="pc-logo" style="background:#0a0a20;font-size:22px">🏠</div><div><div class="pc-name">Safe Haven Shelter Network</div><div class="pc-type">Homeless Shelter · Fairview, OH</div></div></div><div class="pc-challenge">Hosting a <strong style="color:var(--txt)">Winter Warmth Drive</strong> — volunteers log service hours and clothing donations. The leaderboard tracks collective hours served across the community.</div><div class="pc-tags"><span class="pctag" style="background:rgba(34,197,94,.1);color:var(--green);border-color:rgba(34,197,94,.25)">🤝 Community</span><span class="pctag live-tag">Volunteer</span></div></div>
+      <div class="partner-card fade-in"><div class="pc-head"><div class="pc-logo" style="background:#1a0020;font-size:22px">🌱</div><div><div class="pc-name">HopeBridge</div><div class="pc-type">Recovery Support · Cedar Grove, TN</div></div></div><div class="pc-challenge">Running a <strong style="color:var(--txt)">One Day at a Time</strong> challenge — members post their daily proof of showing up for themselves. Private groups ensure a safe, supportive space.</div><div class="pc-tags"><span class="pctag" style="background:rgba(124,58,237,.15);color:#A78BFA;border-color:rgba(124,58,237,.3)">💙 Wellness</span><span class="pctag live-tag">Private</span></div></div>
+      <div class="partner-card fade-in"><div class="pc-head"><div class="pc-logo" style="background:#001a1a;font-size:22px">🌳</div><div><div class="pc-name">Green Path</div><div class="pc-type">Environmental Non-Profit · Lakeside, IL</div></div></div><div class="pc-challenge">Hosting a <strong style="color:var(--txt)">Neighborhood Green-Up</strong> — participants post proof of park cleanups, tree plantings, and recycling drives to track collective environmental impact.</div><div class="pc-tags"><span class="pctag" style="background:rgba(34,197,94,.1);color:var(--green);border-color:rgba(34,197,94,.25)">🌍 Impact</span><span class="pctag live-tag">Community</span></div></div>
+    </div>
+    <div style="margin-top:20px;background:linear-gradient(135deg,var(--card),var(--bg2));border:.5px solid var(--br2);border-radius:16px;padding:28px 28px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px">
+      <div style="max-width:480px"><div style="font-size:18px;font-weight:700;color:var(--txt);margin-bottom:6px">Are you a non-profit or community organization?</div><div style="font-size:14px;color:var(--t2);line-height:1.65">We want to support organizations doing real work in their communities. Reach out — we'd love to talk about how PROOOF can help you rally your people around what matters.</div></div>
+      <a href="#contact" class="btn-primary" style="white-space:nowrap;font-size:14px;padding:13px 24px;text-decoration:none">Get in touch →</a>
+    </div>
+  </div>
+</section>
+<div class="section-divider"></div>
+<section id="official">
+  <div class="container">
+    <div class="fade-in">
+      <div class="section-label">Official Challenges</div>
+      <h2 style="font-family:var(--f-display);font-size:clamp(36px,8vw,60px);font-weight:900;color:var(--txt);line-height:1.05;margin-bottom:12px">City events. Real badges.</h2>
+      <p style="font-size:16px;color:var(--t2);max-width:520px;line-height:1.65">We create official challenges tied to real community events. Badges are permanent on your profile — and only earnable during the event window.</p>
+    </div>
+    <div class="official-card fade-in">
+      <div class="oc-badge">⭐ Official PROOOF Challenge · Oklahoma City</div>
+      <div class="oc-title">OKC Memorial Marathon Training 2027</div>
+      <div class="oc-desc">Train alongside 2,847 OKC runners. Post your training runs daily. All finishers earn the exclusive OKC Finisher Badge — permanently on your profile forever.</div>
+      <div class="oc-prizes">
+        <div class="oc-prize"><div class="oc-prize-rank" style="background:var(--gold);color:#2a1e00">🥇</div><div><div class="oc-prize-val">3 Months Free at OKC Athletic Co.</div><div class="oc-prize-sub">Top leaderboard finisher</div></div></div>
+        <div class="oc-prize"><div class="oc-prize-rank" style="background:#C0C0C0;color:#1a1a1a">🥈</div><div><div class="oc-prize-val">Iron Body Gym Monthly Pass + Merch</div><div class="oc-prize-sub">2nd place finisher</div></div></div>
+        <div class="oc-prize"><div class="oc-prize-rank" style="background:rgba(43,143,255,.2);color:var(--blue)">🏅</div><div><div class="oc-prize-val">OKC Finisher Badge — forever</div><div class="oc-prize-sub">All participants who complete the challenge</div></div></div>
+      </div>
+      <div class="oc-meta">
+        <span class="oc-pill" style="background:rgba(245,197,24,.15);color:var(--gold);border:.5px solid rgba(245,197,24,.3)">26 days left</span>
+        <span class="oc-pill" style="background:rgba(43,143,255,.13);color:var(--blue);border:.5px solid var(--blue-bd)">2,847 joined</span>
+        <span class="oc-pill" style="background:rgba(34,197,94,.1);color:var(--green);border:.5px solid rgba(34,197,94,.25)">Free to join</span>
+      </div>
+      <button onclick="showComingSoon()" class="btn-primary" style="margin-top:20px;cursor:pointer;border:none;font-family:var(--f-body)">Notify Me When Live</button>
+    </div>
+  </div>
+</section>
+<div class="section-divider"></div>
+<section id="viral">
+  <div class="container">
+    <div class="fade-in">
+      <div class="section-label">Built to spread</div>
+      <h2 style="font-family:var(--f-display);font-size:clamp(36px,8vw,60px);font-weight:900;color:var(--txt);line-height:1.05;margin-bottom:12px">Sharing is the product.</h2>
+      <p style="font-size:16px;color:var(--t2);max-width:500px;line-height:1.65">PROOOF™ doesn't beg for shares. It's built so sharing & accountability naturally happens.</p>
+    </div>
+    <div class="viral-grid">
+      <div class="viral-card fade-in"><div class="viral-num" style="background:rgba(43,143,255,.13);color:var(--blue)">01</div><div><div class="viral-title">Invite loop</div><div class="viral-desc">Challenges work better with more people to hold you accountable. Invites friends, grow your community, and level up together.</div></div></div>
+      <div class="viral-card fade-in"><div class="viral-num" style="background:rgba(124,58,237,.13);color:var(--purple)">02</div><div><div class="viral-title">Proof loop</div><div class="viral-desc">After posting proof, users get a shareable graphic: "Day 5/7 complete. I've got Proof." After completing a challenge, you get a fancy new badge to show off.</div></div></div>
+      <div class="viral-card fade-in"><div class="viral-num" style="background:rgba(34,197,94,.1);color:var(--green)">03</div><div><div class="viral-title">Accountability loop</div><div class="viral-desc">Miss a day and your friends can nudge you. No ghost mode. The social pressure is the feature — and it actually works.</div></div></div>
+      <div class="viral-card fade-in"><div class="viral-num" style="background:rgba(245,197,24,.1);color:var(--gold)">04</div><div><div class="viral-title">Studio loop</div><div class="viral-desc">Fitness studios or coaches/trainers create branded challenges to not only grow their own brands, but also to grow and strengthen their communities.</div></div></div>
+      <div class="viral-card fade-in"><div class="viral-num" style="background:rgba(255,68,85,.1);color:var(--red)">05</div><div><div class="viral-title">Leaderboard loop</div><div class="viral-desc">A little competition always makes everything more fun. Join or create challenges, watch people from your communtity hop on, and see the leaderboard explode.</div></div></div>
+    </div>
+  </div>
+</section>
+<div class="section-divider"></div>
+<section id="pricing">
+  <div class="container">
+    <div class="fade-in">
+      <div class="section-label">Pricing</div>
+      <h2 style="font-family:var(--f-display);font-size:clamp(36px,8vw,60px);font-weight:900;color:var(--txt);line-height:1.05;margin-bottom:12px">Start free. Level up when you're ready.</h2>
+    </div>
+    <div class="pricing-grid">
+      <div class="price-card fade-in">
+        <div class="price-stripe" style="background:var(--t3)"></div>
+        <div class="price-tag-pill" style="background:rgba(255,255,255,.07);color:var(--t2)">Free forever</div>
+        <div class="price-name">Free</div>
+        <div class="price-num" style="color:var(--txt)">$0<span class="price-per">/mo</span></div>
+        <div class="price-desc">Everything you need to get started and stay accountable.</div>
+        <div class="price-feats">
+          <div class="price-feat pf-ghost">Join up to 3 challenges</div>
+          <div class="price-feat pf-ghost">Post proof with photo &amp; caption</div>
+          <div class="price-feat pf-ghost">Basic streaks &amp; reactions</div>
+          <div class="price-feat pf-ghost">Up to 10 friends</div>
+          <div class="price-feat pf-ghost">Public challenge discovery</div>
+        </div>
+        <button onclick="showComingSoon()" class="price-btn price-btn-ghost" style="cursor:pointer">Coming Soon</button>
+      </div>
+      <div class="price-card featured fade-in">
+        <div class="price-stripe" style="background:var(--blue)"></div>
+        <div class="price-tag-pill" style="background:var(--blue);color:#fff">Most popular</div>
+        <div class="price-name">Pro</div>
+        <div class="price-num" style="color:var(--blue)">$5.99<span class="price-per">/mo</span></div>
+        <div class="price-desc">For students, athletes, and serious habit builders.</div>
+        <div class="price-feats">
+          <div class="price-feat pf-blue">Unlimited challenges</div>
+          <div class="price-feat pf-blue">Private &amp; invite-only challenges</div>
+          <div class="price-feat pf-blue">Shareable PROOOF™ graphics</div>
+          <div class="price-feat pf-blue">Advanced streak analytics</div>
+          <div class="price-feat pf-blue">Unlimited friends &amp; communities</div>
+          <div class="price-feat pf-blue">Community map &amp; city discovery</div>
+          <div class="price-feat pf-blue">Calendar reminders &amp; nudges</div>
+        </div>
+        <button onclick="showComingSoon()" class="price-btn price-btn-blue" style="cursor:pointer">Coming Soon</button>
+      </div>
+      <div class="price-card fade-in">
+        <div class="price-stripe" style="background:var(--gold)"></div>
+        <div class="price-tag-pill" style="background:var(--gold);color:#2a1e00">Coaches &amp; studios</div>
+        <div class="price-name">Team</div>
+        <div class="price-num" style="color:var(--gold)">$39.99<span class="price-per">/mo</span></div>
+        <div class="price-desc">Run branded challenges for your gym, school, or community.</div>
+        <div class="price-feats">
+          <div class="price-feat pf-gold">Everything in Pro</div>
+          <div class="price-feat pf-gold">Custom branded challenge pages</div>
+          <div class="price-feat pf-gold">Member leaderboard &amp; tracking</div>
+          <div class="price-feat pf-gold">Export winners &amp; completion data</div>
+          <div class="price-feat pf-gold">Unlimited members per challenge</div>
+          <div class="price-feat pf-gold">Referral &amp; giveaway tools</div>
+        </div>
+        <button onclick="showComingSoon()" class="price-btn price-btn-gold" style="cursor:pointer">Coming Soon</button>
+      </div>
+    </div>
+  </div>
+</section>
+<div class="section-divider"></div>
+<section id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-text fade-in">
+        <div class="section-label">About PROOOF</div>
+        <h2 class="about-heading">We believe in proof over promises.</h2>
+        <p class="about-body">Most people don't fail their goals because they don't care. They fail because no one is watching — and when no one is watching, it's easy to let things slide.</p>
+        <p class="about-body">PROOOF was built around one simple idea: your goals are more likely to happen when someone can see them. Not to embarrass you. Not to perform for your followers. Just a small circle of people who know what you're working on — and who will notice if you disappear.</p>
+        <p class="about-body">We're not a productivity app. We're not a habit tracker. We're the group chat for getting your life together.</p>
+        <div class="values-list">
+          <div class="value-item"><div class="value-dot"></div>Show up before you feel ready</div>
+          <div class="value-item"><div class="value-dot"></div>Receipts over intentions</div>
+          <div class="value-item"><div class="value-dot"></div>Community beats willpower, every time</div>
+          <div class="value-item"><div class="value-dot"></div>Low pressure. High accountability.</div>
+        </div>
+      </div>
+      <div class="fade-in" style="display:flex;flex-direction:column;gap:14px;padding-top:8px">
+        <div style="background:var(--card);border:.5px solid var(--br);border-radius:16px;padding:24px">
+          <div style="font-size:11px;font-weight:700;letter-spacing:2px;color:var(--blue);text-transform:uppercase;margin-bottom:12px">Taglines we live by</div>
+          <div style="display:flex;flex-direction:column;gap:10px">
+            <div style="font-family:var(--f-display);font-size:20px;font-weight:900;color:var(--txt)">"Show up. Show proof."</div>
+            <div style="font-family:var(--f-display);font-size:20px;font-weight:900;color:var(--txt)">"Receipts for your goals."</div>
+            <div style="font-family:var(--f-display);font-size:20px;font-weight:900;color:var(--txt)">"Built for follow-through."</div>
+            <div style="font-family:var(--f-display);font-size:20px;font-weight:900;color:var(--txt)">"Don't say it. Prove it."</div>
+          </div>
+        </div>
+        <div style="background:var(--card);border:.5px solid var(--br);border-radius:16px;padding:24px">
+          <div style="font-size:11px;font-weight:700;letter-spacing:2px;color:var(--blue);text-transform:uppercase;margin-bottom:14px">Who Proof is for</div>
+          <div style="display:flex;flex-direction:column;gap:8px">
+            <div style="display:flex;align-items:center;gap:10px;font-size:14px;color:var(--t2)"><span style="font-size:18px">💪</span>Fitness lovers &amp; gym-goers</div>
+            <div style="display:flex;align-items:center;gap:10px;font-size:14px;color:var(--t2)"><span style="font-size:18px">🎓</span>Students &amp; campus communities</div>
+            <div style="display:flex;align-items:center;gap:10px;font-size:14px;color:var(--t2)"><span style="font-size:18px">🧘</span>Wellness &amp; mindfulness circles</div>
+            <div style="display:flex;align-items:center;gap:10px;font-size:14px;color:var(--t2)"><span style="font-size:18px">👥</span>Friend groups &amp; accountability duos</div>
+            <div style="display:flex;align-items:center;gap:10px;font-size:14px;color:var(--t2)"><span style="font-size:18px">🏢</span>Studios, coaches, &amp; brands</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<div class="section-divider"></div>
+<section id="cta">
+  <div class="container">
+    <div class="fade-in" style="text-align:center">
+      <div style="width:80px;height:80px;background:var(--blue);border-radius:20px;display:flex;align-items:center;justify-content:center;margin:0 auto 28px">
+        <svg width="40" height="40" viewBox="0 0 44 44" fill="none"><path d="M9 6L35 22L9 38" stroke="white" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <h2 class="cta-title">We're almost ready.</h2>
+      <p class="cta-sub" style="margin-bottom:40px">PROOOF is launching soon. Get notified the moment we go live — and be first to claim your username.</p>
+    </div>
+    <div id="contact" class="fade-in" style="max-width:540px;margin:0 auto">
+      <div style="background:var(--card);border:.5px solid var(--br2);border-radius:20px;padding:36px 32px">
+        <div style="font-size:11px;font-weight:700;letter-spacing:3px;color:var(--blue);text-transform:uppercase;margin-bottom:8px">Get Early Access</div>
+        <h3 style="font-family:var(--f-display);font-size:28px;font-weight:900;color:var(--txt);margin-bottom:6px;line-height:1.1">Join the waitlist.</h3>
+        <p style="font-size:14px;color:var(--t2);margin-bottom:28px;line-height:1.6">Drop your info below and we'll reach out when PROOOF launches. Have a question or want to partner? Tell us here too.</p>
+        <form id="contact-form" action="https://api.web3forms.com/submit" method="POST" style="display:flex;flex-direction:column;gap:14px">
+          <input type="hidden" name="access_key" value="969af671-0329-4648-9e94-efbfa6027515"/>
+          <input type="hidden" name="from_name" value="PROOOF Social"/>
+          <input type="hidden" name="subject" value="You're on the PROOOF waitlist 🎉"/>
+          <input type="hidden" name="_subject" value="You've been added to the PROOOF waitlist!🎉"/>
+          <input type="hidden" name="_captcha" value="false"/>
+          <input type="hidden" name="_template" value="box"/>
+          <input type="hidden" name="_autoresponse" value="Hey! You're officially on the PROOOF Social waitlist!👀 We'll reach out the moment we go live. In the meantime, follow us on Instagram @prooofsocial! -PROOOF Team."/>
+          <input type="hidden" name="_replyto" value="lana@asklana.co"/>
+          <input type="hidden" name="_next" value="https://prooofsocial.com?submitted=1"/>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+            <div>
+              <label style="font-size:10px;font-weight:800;letter-spacing:2px;color:var(--t3);text-transform:uppercase;display:block;margin-bottom:6px">First name</label>
+              <input name="first_name" required type="text" placeholder="Alex" style="width:100%;background:rgba(255,255,255,.06);border:.5px solid var(--br2);color:var(--txt);border-radius:11px;padding:12px 14px;font-family:var(--f-body);font-size:14px;outline:none;transition:border-color .15s" onfocus="this.style.borderColor='rgba(43,143,255,.5)'" onblur="this.style.borderColor='var(--br2)'"/>
+            </div>
+            <div>
+              <label style="font-size:10px;font-weight:800;letter-spacing:2px;color:var(--t3);text-transform:uppercase;display:block;margin-bottom:6px">Last name</label>
+              <input name="last_name" type="text" placeholder="Morgan" style="width:100%;background:rgba(255,255,255,.06);border:.5px solid var(--br2);color:var(--txt);border-radius:11px;padding:12px 14px;font-family:var(--f-body);font-size:14px;outline:none;transition:border-color .15s" onfocus="this.style.borderColor='rgba(43,143,255,.5)'" onblur="this.style.borderColor='var(--br2)'"/>
+            </div>
+          </div>
+          <div>
+            <label style="font-size:10px;font-weight:800;letter-spacing:2px;color:var(--t3);text-transform:uppercase;display:block;margin-bottom:6px">Email address *</label>
+            <input name="email" required type="email" placeholder="alex@email.com" style="width:100%;background:rgba(255,255,255,.06);border:.5px solid var(--br2);color:var(--txt);border-radius:11px;padding:12px 14px;font-family:var(--f-body);font-size:14px;outline:none;transition:border-color .15s" onfocus="this.style.borderColor='rgba(43,143,255,.5)'" onblur="this.style.borderColor='var(--br2)'"/>
+          </div>
+          <div>
+            <label style="font-size:10px;font-weight:800;letter-spacing:2px;color:var(--t3);text-transform:uppercase;display:block;margin-bottom:6px">I am a...</label>
+            <select name="user_type" style="width:100%;background:rgba(255,255,255,.06);border:.5px solid var(--br2);color:var(--txt);border-radius:11px;padding:12px 14px;font-family:var(--f-body);font-size:14px;outline:none;-webkit-appearance:none;appearance:none;cursor:pointer">
+              <option value="">Select one...</option>
+              <option value="individual">Individual / personal user</option>
+              <option value="student">Student</option>
+              <option value="fitness">Fitness studio or gym</option>
+              <option value="coach">Coach or trainer</option>
+              <option value="restaurant">Restaurant or food business</option>
+              <option value="retail">Retail / local business</option>
+              <option value="school">School or university</option>
+              <option value="creator">Creator or influencer</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+          <div>
+            <label style="font-size:10px;font-weight:800;letter-spacing:2px;color:var(--t3);text-transform:uppercase;display:block;margin-bottom:6px">Message (optional)</label>
+            <textarea name="message" placeholder="Questions, partnership ideas, or just saying hi..." rows="3" style="width:100%;background:rgba(255,255,255,.06);border:.5px solid var(--br2);color:var(--txt);border-radius:11px;padding:12px 14px;font-family:var(--f-body);font-size:14px;outline:none;resize:vertical;line-height:1.55;transition:border-color .15s" onfocus="this.style.borderColor='rgba(43,143,255,.5)'" onblur="this.style.borderColor='var(--br2)'"></textarea>
+          </div>
+          <button type="submit" class="btn-primary" style="font-size:15px;padding:15px;border:none;cursor:pointer;font-family:var(--f-body);width:100%;justify-content:center;text-align:center">
+            <svg width="16" height="16" viewBox="0 0 44 44" fill="none" style="margin-right:6px"><path d="M9 6L35 22L9 38" stroke="white" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Join the PROOOF Waitlist
+          </button>
+          <p style="font-size:12px;color:var(--t3);text-align:center;line-height:1.5">🔒 No spam, ever. We'll only email you when PROOOF launches or if you ask us a question.</p>
+        </form>
+        <div id="form-success" style="display:none;text-align:center;padding:20px 0">
+          <div style="font-size:48px;margin-bottom:14px">🎉</div>
+          <div style="font-family:var(--f-display);font-size:28px;font-weight:900;color:var(--txt);margin-bottom:8px">You're on the list!</div>
+          <div style="font-size:14px;color:var(--t2);line-height:1.65">We'll email you the moment PROOOF goes live.<br/>In the meantime, follow us for updates.</div>
+          <div style="margin-top:20px"><a href="https://instagram.com/prooofsocial" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.06);border:.5px solid var(--br2);border-radius:30px;padding:7px 16px;font-size:13px;font-weight:600;color:var(--txt);text-decoration:none" onmouseover="this.style.background='rgba(255,255,255,.1)'" onmouseout="this.style.background='rgba(255,255,255,.06)'"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>@prooofsocial</a></div>
+        </div>
+      </div>
+      <div style="margin-top:16px;background:var(--card);border:.5px solid var(--br);border-radius:16px;padding:20px 24px;display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:14px;text-align:center">
+        <div style="text-align:center;width:100%"><div style="font-size:14px;font-weight:700;color:var(--txt);margin-bottom:3px">Follow us on Instagram</div><div style="font-size:13px;color:var(--t2)">Updates, sneak peeks, and behind the scenes</div></div>
+        <a href="https://instagram.com/prooofsocial" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.06);border:.5px solid var(--br2);border-radius:30px;padding:7px 16px;font-size:13px;font-weight:600;color:var(--txt);text-decoration:none" onmouseover="this.style.background='rgba(255,255,255,.1)'" onmouseout="this.style.background='rgba(255,255,255,.06)'"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>@prooofsocial</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <a href="#" class="footer-logo">
+    <div class="nav-icon"><svg width="16" height="16" viewBox="0 0 44 44" fill="none"><path d="M9 6L35 22L9 38" stroke="white" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+    <span class="nav-wordmark" style="font-size:18px">PROOOF</span>
+  </a>
+  <div style="margin-bottom:16px"><a href="https://instagram.com/prooofsocial" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.06);border:.5px solid var(--br2);border-radius:30px;padding:7px 16px;font-size:13px;font-weight:600;color:var(--txt);text-decoration:none" onmouseover="this.style.background='rgba(255,255,255,.1)'" onmouseout="this.style.background='rgba(255,255,255,.06)'"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>@prooofsocial</a></div>
+  <div class="footer-links">
+    <a href="#how">How it works</a>
+    <a href="#features">Features</a>
+    <a href="#partners">Community</a>
+    <a href="#nonprofit">Impact</a>
+    <a href="#pricing">Pricing</a>
+    <a href="#about">About</a>
+    <a href="mailto:hello@prooofsocial.com">Contact</a>
+  </div>
+  <!-- ── LEGAL LINKS (the only addition to your code) ── -->
+  <div class="footer-links" style="margin-top:10px">
+    <a href="#" onclick="showLegal('terms');return false;">Terms of Service</a>
+    <a href="#" onclick="showLegal('privacy');return false;">Privacy Policy</a>
+  </div>
+  <div class="footer-legal">© 2026 PROOOF Social · All rights reserved · Built for follow-through.<br/><a href="https://instagram.com/prooofsocial" target="_blank" style="color:var(--blue);text-decoration:none">@prooofsocial</a> on Instagram</div>
+</footer>
+<script>
+function toggleMenu(){document.getElementById('mobile-menu').classList.toggle('open');}
+function closeMenu(){document.getElementById('mobile-menu').classList.remove('open');}
+document.addEventListener('click',e=>{const menu=document.getElementById('mobile-menu');const nav=document.querySelector('nav');if(!nav.contains(e.target)&&!menu.contains(e.target)){menu.classList.remove('open');}});
+function partnerTab(tab,btn){document.querySelectorAll('.partner-pane').forEach(p=>p.classList.remove('on'));document.getElementById('pp-'+tab).classList.add('on');document.querySelectorAll('.ptab').forEach(b=>b.classList.remove('on'));btn.classList.add('on');}
+function showLegal(page){
+  document.getElementById('legal-overlay').style.display='block';
+  document.body.style.overflow='hidden';
+  document.getElementById('legal-terms').style.display=page==='terms'?'block':'none';
+  document.getElementById('legal-privacy').style.display=page==='privacy'?'block':'none';
+  document.getElementById('legal-overlay').scrollTop=0;
+}
+function closeLegal(){document.getElementById('legal-overlay').style.display='none';document.body.style.overflow='';}
+function showComingSoon(){
+  var toast=document.getElementById('cs-toast');
+  if(!toast){toast=document.createElement('div');toast.id='cs-toast';toast.style.cssText='position:fixed;bottom:32px;left:50%;transform:translateX(-50%) translateY(80px);background:#2B8FFF;color:#fff;border-radius:30px;padding:12px 24px;font-size:14px;font-weight:700;white-space:nowrap;z-index:9999;opacity:0;transition:transform .3s,opacity .3s;pointer-events:none;font-family:Barlow,sans-serif';document.body.appendChild(toast);}
+  toast.innerHTML='🎉 PROOOF is coming soon — join the waitlist below!';
+  toast.style.opacity='1';toast.style.transform='translateX(-50%) translateY(0)';
+  setTimeout(function(){toast.style.opacity='0';toast.style.transform='translateX(-50%) translateY(80px)';var el=document.getElementById('contact');if(el)el.scrollIntoView({behavior:'smooth'});},1800);
+}
+document.addEventListener('DOMContentLoaded',function(){
+  var form=document.getElementById('contact-form');
+  if(form){
+    form.addEventListener('submit',function(e){
+      setTimeout(function(){form.style.display='none';document.getElementById('form-success').style.display='block';},800);
+    });
+  }
+  if(window.location.search.includes('success')){
+    var f=document.getElementById('contact-form');var s=document.getElementById('form-success');
+    if(f&&s){f.style.display='none';s.style.display='block';}
+  }
+});
+const observer=new IntersectionObserver(entries=>{entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add('visible');}});},{threshold:0.1});
+document.querySelectorAll('.fade-in').forEach(el=>observer.observe(el));
+const sections=document.querySelectorAll('section[id]');
+const navLinks=document.querySelectorAll('.nav-links a');
+window.addEventListener('scroll',()=>{let current='';sections.forEach(s=>{if(window.scrollY>=s.offsetTop-80)current=s.id;});navLinks.forEach(a=>{a.style.color=a.getAttribute('href')==='#'+current?'var(--txt)':'';});},{passive:true});
+</script>
+
+<!-- ═══ LEGAL OVERLAY ═══ -->
+<div id="legal-overlay" style="display:none;position:fixed;inset:0;background:var(--bg);z-index:9999;overflow-y:auto;padding:0">
+  <div style="max-width:760px;margin:0 auto;padding:80px 28px 80px">
+    <button onclick="closeLegal()" style="display:flex;align-items:center;gap:8px;background:none;border:none;color:var(--blue);font-family:var(--f-body);font-size:15px;font-weight:700;cursor:pointer;margin-bottom:40px;padding:0">← Back to PROOOF</button>
+    <div id="legal-terms" style="display:none">
+      <div style="font-family:var(--f-display);font-size:52px;font-weight:900;color:var(--txt);margin-bottom:8px;line-height:1">Terms of Service</div>
+      <div style="font-size:13px;color:var(--t3);margin-bottom:48px">Last updated: January 1, 2026 · PROOOF Social</div>
+      <div style="display:flex;flex-direction:column;gap:36px;font-size:15px;color:var(--t2);line-height:1.8">
+        <div><div style="font-family:var(--f-display);font-size:24px;font-weight:800;color:var(--txt);margin-bottom:10px">1. Acceptance of Terms</div>By accessing or using PROOOF Social ("PROOOF," "we," "us," or "our"), you agree to be bound by these Terms of Service ("Terms"). If you do not agree to these Terms, please do not use our platform. PROOOF Social is a social accountability platform that enables users to create and join challenges, post proof of completed tasks, and build accountability communities.</div>
+        <div><div style="font-family:var(--f-display);font-size:24px;font-weight:800;color:var(--txt);margin-bottom:10px">2. Eligibility</div>You must be at least 13 years of age to use PROOOF. If you are under 18, you represent that you have your parent or guardian's permission to use the platform. By using PROOOF, you represent and warrant that you meet these requirements.</div>
+        <div><div style="font-family:var(--f-display);font-size:24px;font-weight:800;color:var(--txt);margin-bottom:10px">3. Your Account</div>You are responsible for maintaining the confidentiality of your account credentials and for all activities that occur under your account. You agree to notify us immediately of any unauthorized use of your account. PROOOF Social is not liable for any losses resulting from unauthorized use of your account.</div>
+        <div><div style="font-family:var(--f-display);font-size:24px;font-weight:800;color:var(--txt);margin-bottom:10px">4. User Content</div>You retain ownership of all content you post on PROOOF ("User Content"). By posting User Content, you grant PROOOF Social a non-exclusive, royalty-free, worldwide license to use, display, reproduce, and distribute your content in connection with operating the platform. You represent that you have all rights necessary to grant this license and that your content does not violate any third-party rights.</div>
+        <div><div style="font-family:var(--f-display);font-size:24px;font-weight:800;color:var(--txt);margin-bottom:10px">5. Prohibited Conduct</div>You agree not to: (a) post content that is illegal, harmful, threatening, abusive, or harassing; (b) impersonate any person or entity; (c) interfere with or disrupt the platform; (d) attempt to gain unauthorized access to any portion of the platform; (e) use the platform for any commercial purpose without our written consent; (f) post content that violates any applicable law or regulation.</div>
+        <div><div style="font-family:var(--f-display);font-size:24px;font-weight:800;color:var(--txt);margin-bottom:10px">6. Challenges and Giveaways</div>Challenges hosted by third-party businesses or organizations on PROOOF are subject to those parties' own terms and conditions. PROOOF Social is not responsible for prizes, giveaways, or rewards offered by third-party challenge creators. Participation in any giveaway is subject to the specific rules posted by the challenge host.</div>
+        <div><div style="font-family:var(--f-display);font-size:24px;font-weight:800;color:var(--txt);margin-bottom:10px">7. Intellectual Property</div>The PROOOF name, logo, and all associated branding are trademarks of PROOOF Social. You may not use our trademarks without prior written permission. All platform content, features, and functionality are owned by PROOOF Social and protected by copyright, trademark, and other intellectual property laws.</div>
+        <div><div style="font-family:var(--f-display);font-size:24px;font-weight:800;color:var(--txt);margin-bottom:10px">8. Disclaimer of Warranties</div>PROOOF is provided "as is" and "as available" without any warranties of any kind, express or implied. We do not warrant that the platform will be uninterrupted, error-free, or free of harmful components. Your use of the platform is at your sole risk.</div>
+        <div><div style="font-family:var(--f-display);font-size:24px;font-weight:800;color:var(--txt);margin-bottom:10px">9. Limitation of Liability</div>To the maximum extent permitted by law, PROOOF Social shall not be liable for any indirect, incidental, special, consequential, or punitive damages arising out of or relating to your use of the platform. Our total liability to you shall not exceed the amount you paid us in the twelve months preceding the claim.</div>
+        <div><div style="font-family:var(--f-display);font-size:24px;font-weight:800;color:var(--txt);margin-bottom:10px">10. Termination</div>We reserve the right to suspend or terminate your account at any time for any reason, including violation of these Terms. You may delete your account at any time through the platform settings. Upon termination, your right to use the platform ceases immediately.</div>
+        <div><div style="font-family:var(--f-display);font-size:24px;font-weight:800;color:var(--txt);margin-bottom:10px">11. Changes to Terms</div>We may update these Terms from time to time. We will notify you of material changes by posting the new Terms on the platform and updating the "Last updated" date. Your continued use of PROOOF after changes constitutes acceptance of the updated Terms.</div>
+        <div><div style="font-family:var(--f-display);font-size:24px;font-weight:800;color:var(--txt);margin-bottom:10px">12. Governing Law</div>These Terms are governed by the laws of the State of Oklahoma, without regard to conflict of law principles. Any disputes arising from these Terms shall be resolved in the courts of Oklahoma County, Oklahoma.</div>
+        <div><div style="font-family:var(--f-display);font-size:24px;font-weight:800;color:var(--txt);margin-bottom:10px">13. Contact</div>For questions about these Terms, please contact us at <a href="mailto:lana@asklana.co" style="color:var(--blue)">lana@asklana.co</a>.</div>
+      </div>
+    </div>
+    <div id="legal-privacy" style="display:none">
+      <div style="font-family:var(--f-display);font-size:52px;font-weight:900;color:var(--txt);margin-bottom:8px;line-height:1">Privacy Policy</div>
+      <div style="font-size:13px;color:var(--t3);margin-bottom:48px">Last updated: January 1, 2026 · PROOOF Social</div>
+      <div style="display:flex;flex-direction:column;gap:36px;font-size:15px;color:var(--t2);line-height:1.8">
+        <div><div style="font-family:var(--f-display);font-size:24px;font-weight:800;color:var(--txt);margin-bottom:10px">1. Information We Collect</div>We collect information you provide directly, including your name, email address, username, profile photo, and any content you post on PROOOF. We also automatically collect certain information when you use the platform, including device information, IP address, browser type, and usage data such as pages visited and features used.</div>
+        <div><div style="font-family:var(--f-display);font-size:24px;font-weight:800;color:var(--txt);margin-bottom:10px">2. How We Use Your Information</div>We use your information to: (a) provide, operate, and improve the PROOOF platform; (b) personalize your experience and show relevant challenges; (c) communicate with you about your account and platform updates; (d) send transactional emails such as notifications and receipts; (e) analyze usage patterns to improve our services; (f) comply with legal obligations.</div>
+        <div><div style="font-family:var(--f-display);font-size:24px;font-weight:800;color:var(--txt);margin-bottom:10px">3. Information Sharing</div>We do not sell your personal information to third parties. We may share your information with: (a) service providers who help us operate the platform (hosting, analytics, email delivery); (b) business or school partners when you join their hosted challenges — limited to your username and challenge participation data; (c) law enforcement when required by law. All service providers are contractually obligated to protect your information.</div>
+        <div><div style="font-family:var(--f-display);font-size:24px;font-weight:800;color:var(--txt);margin-bottom:10px">4. Public Content</div>Content you post in public challenges — including your username, proof posts, streaks, and badges — is visible to other PROOOF users. Private and invite-only challenge content is only visible to challenge members. You control your privacy settings within the platform.</div>
+        <div><div style="font-family:var(--f-display);font-size:24px;font-weight:800;color:var(--txt);margin-bottom:10px">5. Data Retention</div>We retain your information for as long as your account is active or as needed to provide services. If you delete your account, we will delete your personal data within 30 days, except where retention is required by law or legitimate business purposes such as fraud prevention.</div>
+        <div><div style="font-family:var(--f-display);font-size:24px;font-weight:800;color:var(--txt);margin-bottom:10px">6. Your Rights</div>You have the right to: (a) access the personal information we hold about you; (b) correct inaccurate information; (c) request deletion of your account and associated data; (d) opt out of marketing communications at any time; (e) data portability where technically feasible. To exercise these rights, contact us at <a href="mailto:lana@asklana.co" style="color:var(--blue)">lana@asklana.co</a>.</div>
+        <div><div style="font-family:var(--f-display);font-size:24px;font-weight:800;color:var(--txt);margin-bottom:10px">7. Cookies</div>We use cookies and similar technologies to maintain your session, remember your preferences, and analyze platform usage. You can control cookie settings through your browser. Disabling cookies may affect some platform functionality.</div>
+        <div><div style="font-family:var(--f-display);font-size:24px;font-weight:800;color:var(--txt);margin-bottom:10px">8. Children's Privacy</div>PROOOF is not directed at children under 13. We do not knowingly collect personal information from children under 13. If we learn we have collected such information, we will delete it promptly. If you believe a child under 13 has provided us with personal information, please contact us immediately.</div>
+        <div><div style="font-family:var(--f-display);font-size:24px;font-weight:800;color:var(--txt);margin-bottom:10px">9. Security</div>We implement industry-standard security measures to protect your information, including encryption in transit and at rest. However, no method of transmission over the internet is 100% secure, and we cannot guarantee absolute security.</div>
+        <div><div style="font-family:var(--f-display);font-size:24px;font-weight:800;color:var(--txt);margin-bottom:10px">10. Changes to This Policy</div>We may update this Privacy Policy from time to time. We will notify you of significant changes via email or a prominent notice on the platform. Your continued use of PROOOF after changes constitutes acceptance of the updated policy.</div>
+        <div><div style="font-family:var(--f-display);font-size:24px;font-weight:800;color:var(--txt);margin-bottom:10px">11. Contact Us</div>For privacy questions or to exercise your rights, contact us at:<br/><br/><strong style="color:var(--txt)">PROOOF Social</strong><br/>Email: <a href="mailto:lana@asklana.co" style="color:var(--blue)">lana@asklana.co</a><br/>Instagram: <a href="https://instagram.com/prooofsocial" target="_blank" style="color:var(--blue)">@prooofsocial</a></div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>
